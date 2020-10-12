@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who's That Pokémon!!!???</title>
+    <!-- font from google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Setting the Tab icon -->
+    <link rel="shortcut icon" type="ico" href="Pokemon.ico">
+    <!-- link the css -->
+    <link href="style.css" rel="stylesheet" />
+    <!-- load the jquery -->
+    <script src="./jquery.js"></script>
+
+    <style type="text/css">
+        .div_extra {
+            position: fixed;
+            bottom: 0;
+            /*margin-top: 500px;*/
+            text-align: center;
+        }
+        
+        #audio {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        
+        .div_extra h6 {
+            margin: 0;
+        }
+        
+        #p_name p {
+            font-size: 11px;
+        }
+    </style>
+</head>
+<!-- this audio function dose not work well -->
+<!-- <EMBED src="pokemon_music.mp3" width=0 height=0 type=audio/mpeg loop="-1" autostart="true" id="the-audio"></EMBED> -->
+
+<body>
+
+    <!-- load the gameboy picture -->
+    <img class="gameboy" src="gameboy.png" alt="gameboy">
+    <!-- load the blur effect on the gameboy picture -->
+    <img class="image-guess blur" id="blur-image" src="" />
+
+    <!-- this div is for search part on the left side -->
+    <div class="div_search">
+        <h1 class='project_title'>Who's That Pokémon?!</h1>
+        <section class='project_container'>
+            <input id="pokemon_input"></input>
+            <button id='pokemon-button'>GUESS!!!</button>
+            <!-- let GUESS button disappear, show the RESET button! -->
+            <button id='reset' style="display: none;">RESET</button>
+        </section>
+    </div>
+
+
+    <!-- this div is for the text in the gameboy screen -->
+    <div class='div_info'>
+        <img class="pokemon_image" id="p_image" />
+        <h1></h1>
+        <h2 class="pokemon_name" id='p_name'></h2>
+        <h3 class="pokemon_weight" id='p_weight'></h3>
+        <h3 class="pokemon_height" id='p_height'></h3>
+        <h3 class="pokemon_types" id='p_types'></h3>
+        <h3 class="pokemon_abilities" id='p_abilities'></h3>
+        <h4 class="pokemon_id" id='p_id'></h4>
+    </div>
+
+    <!-- this div is for our team infos -->
+    <div class="div_extra">
+        <img class="pokemon-logo-png" src="pokemon-logo.png" alt="pokemon-logo">
+        <h6 class="project_artists">Artists: Siyan Liu & Yingluo Yu & Hongyi Zhang</h6>
+        <h7 class="project_className">Connection Lab Class @ IMA LowRes</h7>
+    </div>
+    <!-- link js -->
+    <script src="app.js"></script>
+
+    <!-- load the music -->
+    <audio controls="controls" autoplay="autoplay" id="audio">
+      <source src="./pokemon_music.mp3" type="audio/mp3" />
+    </audio>
+
+    <!-- <！！！！！！！！link to p5.js library！！！！！！！！> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+
+</body>
+
+<!-- clean the gameboy screen when press the  RESET button -->
+<!--$$$$$$$$$$ from  here they are jquery codes$$$$$$$$$$$ -->
+<script type="text/javascript">
+    $(function() {
+        $('#reset').click(function() {
+            $('#p_name').empty();
+            $('#p_weight').empty();
+            $('#p_height').empty();
+            $('#p_types').empty();
+            $('#p_abilities').empty();
+            $('#p_id').empty();
+            $('#pokemon_input').val('');
+            console.log("blur image");
+            // fetch the infos from pokemon api this website
+            fetch("https://pokeapi.co/api/v2/pokemon?limit=151/")
+                // the files from the api we call it json?
+                .then(response => response.json())
+                // onec u got the files,then dig out data
+                .then(data => {
+                    pokemonArray = data.results;
+                    console.log(pokemonArray);
+                    // we need a random pokemon to guess
+                    let randomNumber = Math.floor(Math.random() * pokemonArray.length);
+                    console.log(randomNumber);
+                    let nameElement = document.getElementById('pokemon-name');
+                    console.log(data.results[randomNumber].name);
+                    name = data.results[randomNumber].name;
+                    let API_URL = "https://pokeapi.co/api/v2/pokemon/" + name;
+                    fetch(API_URL)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            currentPokeData = data;
+                            document.getElementById('blur-image').src = data.sprites.front_default;
+
+                        })
+                })
+                //  blur the pokemon image
+            document.getElementById('blur-image').classList.add("blur");
+            // make RESET button disappear
+            $("#reset").css('display', 'none');
+            // display the GUESS button,then inline-block means display in the original place
+            $("#pokemon-button").css('display', 'inline-block');
+
+        })
+    })
+</script>
+
+</html>

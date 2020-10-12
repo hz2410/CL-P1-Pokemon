@@ -1,0 +1,86 @@
+body {
+    background-color: #EFECE1;
+    font-family: 'Press Start 2P', cursive;
+    text-decoration-color: grey;
+}
+
+.div_search {
+    font-size: xx-small;
+    position: absolute;
+    left: 10%;
+    margin-top: 20%;
+}
+
+.gameboy {
+    position: absolute;
+    right: 0px;
+    width: 50%;
+}
+
+.div_info {
+    position: absolute;
+    left: 50%;
+    margin-top: 20%;
+    margin-left: 5%;
+    line-height: 5px;
+    font-size: xx-small;
+}
+
+.div_extra {
+    position: absolute;
+    bottom: 0;
+}
+
+.pokemon-logo-png {
+    width: 5%;
+}
+
+.project_artists {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.project_className {
+    font-size: 12px;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: hidden;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+.blur {
+    -webkit-filter: blur(5px);
+    /* Safari 6.0 - 9.0 */
+    filter: blur(5px);
+}
+
+.image-guess {
+    position: absolute;
+    right: 0;
+    margin-right: 34%;
+    margin-top: 15%;
+    line-height: 5px;
+    width: 10%;
+    ;
+}
+
+.project_title {
+    color: gray;
+}
